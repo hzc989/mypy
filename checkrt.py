@@ -16,6 +16,7 @@ logging.basicConfig(filename = logfile, level = logging.INFO, format = '%(asctim
 #IP TEST
 ip = sys.argv[1]
 test = Popen('ping -c 5 %s' %ip,shell = True, stdout = PIPE, stderr = PIPE)
+test.wait()
 if(test.returncode != 0):
 	logging.error('target host unreachable or does not exist!')
 	exit(1)
@@ -30,7 +31,6 @@ if(p.returncode == 0):
 	lastline = stdoutdata.splitlines().pop().split()
 	loss = float(lastline[2].replace('%',''))
 	avg = float(lastline[5])
-	print loss,avg
 	if(loss > 10.0 or avg > 50.0):
 		logging.warn('the route to %s is not good' %ip)
 		logging.warn("here is result of the command mtr with 100 packets\n%s" %stdoutdata)
