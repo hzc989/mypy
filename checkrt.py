@@ -28,7 +28,6 @@ if(p.returncode == 0):
 	if(loss > 10.0 or avg > 50.0):
 		logging.warn('the route to %s is not good' %ip)
 		logging.warn("here is result of the command mtr with 100 packets\n%s" %stdoutdata)
-	else:
-		logging.info('checking route to %s DONE' %ip)
+	logging.info('checking route to %s DONE' %ip)
 elif(stderrdata):
 	logging.error(stderrdata)
