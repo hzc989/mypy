@@ -14,14 +14,9 @@ import logging
 #LOGGING CONFIG
 logfile = "/var/log/checkrt.log"
 logging.basicConfig(filename = logfile, level = logging.INFO, format = '%(asctime)s - %(levelname)s: %(message)s')
-#IP TEST
-ip = sys.argv[1]
-test = Popen('ping -c 5 %s' %ip,shell = True, stdout = PIPE, stderr = PIPE)
-test.wait()
-if(test.returncode != 0):
-	logging.error('target host unreachable or does not exist!')
-	exit(1)
+
 #START CHECKING	
+ip = sys.argv[1]
 logging.info('START checking route to %s' %ip)
 p = Popen('mtr -c 100 -r -n %s' %ip, shell = True, stdout = PIPE, stderr = PIPE)
 p.wait()
